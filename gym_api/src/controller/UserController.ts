@@ -1,9 +1,13 @@
-import {getRepository} from "typeorm";
+import { getRepository, Connection } from "typeorm";
 import { Request, Response} from "express";
-import {User} from "../entity/User";
+import { User } from "../entity/User";
 
 export const getUsers = async ( request: Request, response: Response) => {
-    const users = await getRepository(User).find()
+    const users = await getRepository(User).find({ relations: ["profile"] })
+    /*const user = new User()
+        user.person = newperson
+
+    await getRepository(User).save(user);*/
     return response.json(users)
 };
 
