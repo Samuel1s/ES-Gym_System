@@ -17,7 +17,7 @@ export class Profile {
     @Column()
     registration_number: number        // 1xxxxx - to Client, 2xxxxx  - To secretary ...
 
-    @Column()
+    @Column({ default: null })
     photo: string;
 
     @CreateDateColumn()

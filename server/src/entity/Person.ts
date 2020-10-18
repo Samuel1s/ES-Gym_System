@@ -13,7 +13,7 @@ export abstract class Person {
     @Column()
     age: number;
 
-    @Column({type: "int", width: 11})
+    @Column({type: "bigint", width: 11, default: null}) // Unfortunately bigint type convert to string.
     cpf: number;
 
     @Column()

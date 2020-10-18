@@ -1,16 +1,16 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm"
+import { Column, PrimaryGeneratedColumn } from "typeorm"
 
 export abstract class Exam {
     @PrimaryGeneratedColumn()
     id: number;
     
-    @Column({ type: "float" })
+    @Column({ type: "float", default: null })
     cardiac_auscultation: number
 
-    @Column({ type: "float" })
+    @Column({ type: "float", default: null })
     blood_pressure: number
 
-    @Column()
+    @Column({ default: undefined })
     anamnesis: String
 
 }

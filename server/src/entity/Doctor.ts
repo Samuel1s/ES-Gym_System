@@ -1,7 +1,11 @@
-import { Entity, CreateDateColumn, UpdateDateColumn, Column, OneToOne, JoinColumn, OneToMany } from "typeorm";
+import { Entity, CreateDateColumn, UpdateDateColumn, Column, OneToOne, JoinColumn, ManyToMany, JoinTable } from "typeorm";
 import { Medical_Exam } from "./Medical_Exam"
 import { Profile } from "./Profile"
 import { Person } from "./Person"
+
+/** DOC: 1,
+ *  Many doctors have many medical tests from users.
+ */
 
 @Entity()
 export class Doctor extends Person {
@@ -15,7 +19,8 @@ export class Doctor extends Person {
     @JoinColumn()
     profile_d: Profile
 
-    @OneToMany(() => Medical_Exam, type => type.id)
+    @ManyToMany(() => Medical_Exam)
+    @JoinTable()
     exams: Medical_Exam[]
 
     @CreateDateColumn()
