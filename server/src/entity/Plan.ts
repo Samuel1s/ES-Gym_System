@@ -1,28 +1,34 @@
-import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm"
-import { Weight_Training } from "./ Weight_Training_Plan"
-import { Swinning } from "./Swinning_Plan"
-import { SCR } from "./SCR_Plan" 
+import { Column, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm"
+import { Weight_Training } from "./Weight_Training_Classes"
+import { Registration } from "./Registration";
+import { Swinning } from "./Swinning_Classes"
+import { Spinning } from "./Spinnig_Classes" 
+import { Crossfit } from "./Crossfit_Classes"
+import { Rhythm } from "./Rhythm_Classes"
+import { User } from "./User";
+
+/** DOC: 1,
+ *  When the secretary creates the register she needs to register a plan for the user.
+ *  Plan type and modalitie.
+ */
 
 @Entity()
 export class Plan {
     @PrimaryGeneratedColumn()
     id: number;
     
-    @Column()
-    name: String;
+    @Column({default: ''})
+    plan_type: string;
 
-    @OneToOne(() => Weight_Training)
-    @JoinColumn()
-    weight_training_p: Weight_Training;
+    @Column({default: null})
+    times_per_week: number 
 
-    @OneToOne(() => Swinning)
-    @JoinColumn()
-    swinning_p: Swinning;
+    @Column({type: 'float', default: null})
+    total_plan_value: number
 
-    @OneToOne(() => SCR)
-    @JoinColumn()
-    scr_p: SCR;
+    @Column({ default: '' })
+    modality: string
 
-
-
+    @ManyToMany(() => Registration, register => register.plans)
+    registers: Registration[]
 }

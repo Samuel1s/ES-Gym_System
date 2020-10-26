@@ -2,7 +2,7 @@ import { Column, PrimaryGeneratedColumn } from "typeorm"
 
 export abstract class Exam {
     @PrimaryGeneratedColumn()
-    id: number;
+    id: number
     
     @Column({ type: "float", default: null })
     cardiac_auscultation: number
@@ -10,7 +10,6 @@ export abstract class Exam {
     @Column({ type: "float", default: null })
     blood_pressure: number
 
-    @Column({ default: undefined })
+    @Column({ default: null })
     anamnesis: String
-
 }

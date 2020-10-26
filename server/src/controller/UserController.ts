@@ -16,30 +16,41 @@ import { User } from "../entity/User"
 
 export const createProfile = async(request: Request, response: Response) => {
     const validate = request.params.email;
-    const checkuser = await getConnection().createQueryBuilder().select("user").from(User, "user").where("user.email = :email", { email: validate }).getOne()
+    
+    try {
+        const checkUser = await getConnection().createQueryBuilder().select("user").from(User, "user").where("user.email = :email", { email: validate }).getOne()
 
-    if (checkuser) {
-        const createProfile = await getRepository(Profile).save(request.body)
-        await getConnection().createQueryBuilder().update(User).set({ profile_u: request.body.id, pending_profile: true }).where("email = :email", { email: validate }).execute()
-        
-        response.json(createProfile)
+        if (checkUser.id != null) {
+            const createProfile = await getRepository(Profile).save(request.body)
+            
+            if (createProfile.id != null) {
+                const updateUser = await getConnection().createQueryBuilder().update(User).set({ profile_u: createProfile.id, pending_profile: false }).where("email = :email", { email: validate }).execute()
+                
+                if (updateUser.affected == 1) {
+                    response.status(201).json(createProfile)
+                }
+                else {
+                    response.status(400).json({ message: "Failed to update the user table." })     
+                }
+            } else {
+                response.status(400).json({ message: "Failed to create." })    
+            }
+        } else {
+            response.status(400).json({ message: "The email provided does not exist." })
+        }
+    } catch(err) {
+        response.status(400).json({ message: "Request Fail!!" + err })
     }
-
-    return response.status(404).json({message: "Permissao Negada, você não possui registro prévio. "})
 }
 
 export const showProfile = async (request: Request, response: Response) => {
-    const myId = request.params.id
-    const myProfile = await getRepository(User).createQueryBuilder("user").leftJoinAndSelect("user.profile_u", "profile").where("user.id = :id", { id: myId }).getOne()
-    
-    return response.status(200).json(myProfile)
+    const { id } = request.params
+
+    try {
+        const myProfile = await getRepository(User).createQueryBuilder("user").leftJoinAndSelect("user.profile_u", "profile").where("user.id = :id", { id: id }).getOne()
+        response.status(200).json(myProfile)
+   
+    } catch(err) {
+        response.status(400).json({ message: "Request Fail!!" + err })
+    }
 }
-
-export const showMedicalExam = async (request: Request, response: Response) => {
-    const myId = request.params.id
-    const myExam = await getRepository(User).createQueryBuilder("user").leftJoinAndSelect("user.exam_u", "medical_exam").where("user.id = :id", { id: myId}).getOne()
-
-    return response.status(200).json(myExam)
-}
-
-

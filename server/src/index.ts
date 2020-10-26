@@ -1,8 +1,8 @@
-import "reflect-metadata";
+import "reflect-metadata"
 import * as express from "express"
 import * as bodyParser from "body-parser"
 import routes from "./routes"
-import { createConnection } from "typeorm";
+import { createConnection } from "typeorm"
 
 const app = express()
 createConnection()

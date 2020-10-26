@@ -2,29 +2,29 @@ import { Column, PrimaryGeneratedColumn } from "typeorm"
 
 export abstract class Person {
     @PrimaryGeneratedColumn()
-    id: number;
+    id: number
 
     @Column()
-    name: string;
+    name: string
 
     @Column()
-    gender: string;
+    gender: string
     
     @Column()
-    age: number;
+    age: number
 
     @Column({type: "bigint", width: 11, default: null}) // Unfortunately bigint type convert to string.
-    cpf: number;
+    cpf: number
 
     @Column()
-    blood_type: string;
+    blood_type: string
 
     @Column({type: "int", width: 8})
-    n_identity: number;
+    n_identity: number
 
     @Column()
-    n_telephone: number;
+    n_telephone: number
 
     @Column()
-    email: string;
+    email: string
 }

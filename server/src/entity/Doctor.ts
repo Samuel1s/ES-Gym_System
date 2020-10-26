@@ -19,13 +19,13 @@ export class Doctor extends Person {
     @JoinColumn()
     profile_d: Profile
 
-    @ManyToMany(() => Medical_Exam)
+    @ManyToMany(() => Medical_Exam, exam => exam.doctors, {cascade: true })
     @JoinTable()
     exams: Medical_Exam[]
 
     @CreateDateColumn()
-    created_at: Date;
+    created_at: Date
 
     @UpdateDateColumn()
-    updated_at: Date;
+    updated_at: Date
 }

@@ -7,7 +7,7 @@ export default class UserList extends React.Component {
     }
   
     componentDidMount() {
-      axios.get(`https:/`)
+      axios.get(`https:/8000/sasdas`)
         .then(res => {
           const persons = res.data;
           this.setState({ persons });
