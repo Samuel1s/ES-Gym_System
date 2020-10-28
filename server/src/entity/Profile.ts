@@ -1,4 +1,4 @@
-import { CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn, Column, AfterInsert } from "typeorm"
+import { CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn, Column } from "typeorm"
 
 @Entity()
 export class Profile {

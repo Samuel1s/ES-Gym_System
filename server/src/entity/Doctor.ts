@@ -1,4 +1,4 @@
-import { Entity, CreateDateColumn, UpdateDateColumn, Column, OneToOne, JoinColumn, ManyToMany, JoinTable } from "typeorm";
+import { Entity, CreateDateColumn, UpdateDateColumn, Column, OneToOne, JoinColumn, ManyToMany, JoinTable } from "typeorm"
 import { Medical_Exam } from "./Medical_Exam"
 import { Profile } from "./Profile"
 import { Person } from "./Person"

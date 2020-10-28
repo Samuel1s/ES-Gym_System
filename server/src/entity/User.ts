@@ -1,4 +1,4 @@
-import { Entity, CreateDateColumn, OneToOne, JoinColumn, UpdateDateColumn, Column, OneToMany, BeforeInsert } from "typeorm"
+import { Entity, CreateDateColumn, OneToOne, JoinColumn, UpdateDateColumn, Column, OneToMany } from "typeorm"
 import { Registration } from "./Registration"
 import { Medical_Exam } from "./Medical_Exam"
 import { Profile } from "./Profile"
@@ -27,7 +27,7 @@ export class User extends Person {
 
     @OneToOne(() => Profile)
     @JoinColumn()
-    profile_u: Profile;     
+    profile_u: Profile  
     
     @OneToMany(() => Medical_Exam, medical_exam => medical_exam.user, { onDelete : 'CASCADE' })   // OBS: Maybe Medical_Exam is "OneToMany" or "OneToOne".
     exam_u: Medical_Exam[]

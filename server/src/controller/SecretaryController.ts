@@ -107,12 +107,12 @@ export const registerUser = async (request: Request, response: Response) => {
                 
             try {
                 const plans = await getRepository(Plan).findByIds(request.body.plans)
-                const modality_cf = await getRepository(Crossfit).findByIds(request.body.crossfit)
                 const modality_rt = await getRepository(Rhythm).findByIds(request.body.rhythm)
+                const modality_cf = await getRepository(Crossfit).findByIds(request.body.crossfit)
                 const modality_sp = await getRepository(Spinning).findByIds(request.body.spinning)
                 const modality_sw = await getRepository(Swinning).findByIds(request.body.swinning)
                 const modality_wt = await getRepository(Weight_Training).findByIds(request.body.weightTraining) 
-            
+                
                 const enrollUser = new Registration()
                 enrollUser.register_number = request.body.register_number
                 enrollUser.plans = plans
@@ -125,10 +125,26 @@ export const registerUser = async (request: Request, response: Response) => {
                 const registred = await getRepository(Registration).save(enrollUser)
 
                 if (registred.id != null) {
+                    modality_rt.forEach(async index => {
+                        await getConnection().createQueryBuilder().update(Rhythm).set({ number_of_enrollments: index.number_of_enrollments + 1 }).where("id = :id", { id: index.id }).execute()
+                    })
+                    modality_cf.forEach(async index => {
+                        await getConnection().createQueryBuilder().update(Crossfit).set({ number_of_enrollments: index.number_of_enrollments + 1 }).where("id = :id", { id: index.id }).execute()
+                    })
+                    modality_sw.forEach(async index => {
+                        await getConnection().createQueryBuilder().update(Swinning).set({ number_of_enrollments: index.number_of_enrollments + 1 }).where("id = :id", { id: index.id }).execute()
+                    })
+                    modality_sp.forEach(async index => {
+                        await getConnection().createQueryBuilder().update(Spinning).set({ number_of_enrollments: index.number_of_enrollments + 1 }).where("id = :id", { id: index.id }).execute()
+                    })
+                    modality_wt.forEach(async index => {
+                        await getConnection().createQueryBuilder().update(Weight_Training).set({ number_of_enrollments: index.number_of_enrollments + 1 }).where("id = :id", { id: index.id }).execute()
+                    })
+
                     const updateUserRecord = await getConnection().createQueryBuilder().update(User).set({ registration_u: enrollUser }).where("id = :id", { id: id}).execute()
 
                     if (updateUserRecord.affected == 1) {
-                        const updateEnrollExam = await getConnection().createQueryBuilder().update(Registration).set({user_medical_exams: userExam}).where("id = :id", { id: enrollUser.id }).execute()
+                        await getConnection().createQueryBuilder().update(Registration).set({user_medical_exams: userExam}).where("id = :id", { id: enrollUser.id }).execute()
                         response.status(201).json(enrollUser)
                     }
                     else
@@ -277,38 +293,4 @@ export const selectPlanType = async (request: Request, response: Response) => {
     } catch (err) {
         response.status(400).json({ message: "Request Fail!!" + err })
     }    
-}
-
-export const updateModalityTables = async (request: Request, response: Response) => {
-    try {
-        if (request.body.crossfit != null) {
-            request.body.crossfit.forEach(async index => {
-                const x = await getConnection().createQueryBuilder().update(Crossfit).set({ number_of_enrollments: index.number_of_enrollments + 1 }).where("id = :id", { id: index.id }).execute()
-            })
-        }
-        if (request.body.rhythm != null) {
-            request.body.rhythm.forEach(async index => {
-                const x = await getConnection().createQueryBuilder().update(Rhythm).set({ number_of_enrollments: index.number_of_enrollments + 1 }).where("id = :id", { id: index.id }).execute()
-            })
-        }
-        if (request.body.spinning != null) {
-            request.body.spinning.forEach(async index => {
-                const x = await getConnection().createQueryBuilder().update(Spinning).set({ number_of_enrollments: index.number_of_enrollments + 1 }).where("id = :id", { id: index.id }).execute()
-            })
-        }
-        if (request.body.swinning != null) {
-            request.body.swinning.forEach(async index => {
-                const x = await getConnection().createQueryBuilder().update(Swinning).set({ number_of_enrollments: index.number_of_enrollments + 1 }).where("id = :id", { id: index.id }).execute()
-            })
-        }
-        if (request.body.weightTraining != null) {
-            request.body.weightTraining.forEach(async index => {
-                const x = await getConnection().createQueryBuilder().update(Weight_Training).set({ number_of_enrollments: index.number_of_enrollments + 1 }).where("id = :id", { id: index.id }).execute()
-            })
-        }
-    response.status(201).json({ message: "Success when updating as tables" })
-
-    } catch (err) {
-        response.status(400).json({ message: "Request Fail!!" + err })
-    } 
 }

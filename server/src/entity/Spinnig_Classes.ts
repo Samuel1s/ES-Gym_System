@@ -1,6 +1,6 @@
-import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn, ManyToMany, Generated } from "typeorm"
-import { Registration } from "./Registration";
-import { Teacher } from "./Teacher";
+import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn, ManyToMany } from "typeorm"
+import { Registration } from "./Registration"
+import { Teacher } from "./Teacher"
 
 @Entity()
 export class Spinning {

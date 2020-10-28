@@ -1,4 +1,4 @@
-import { Entity, CreateDateColumn, UpdateDateColumn, OneToOne, JoinColumn, Column } from "typeorm";
+import { Entity, CreateDateColumn, UpdateDateColumn, OneToOne, JoinColumn, Column } from "typeorm"
 import { Profile } from "./Profile"
 import { Person } from "./Person"
 

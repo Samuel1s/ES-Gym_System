@@ -30,7 +30,7 @@ export const createProfile = async(request: Request, response: Response) => {
                     response.status(201).json(createProfile)
                 }
                 else {
-                    response.status(400).json({ message: "Failed to update the user table." })     
+                    response.status(400).json({ message: "Failed to update the table user." })     
                 }
             } else {
                 response.status(400).json({ message: "Failed to create." })    
@@ -38,7 +38,7 @@ export const createProfile = async(request: Request, response: Response) => {
         } else {
             response.status(400).json({ message: "The email provided does not exist." })
         }
-    } catch(err) {
+    } catch (err) {
         response.status(400).json({ message: "Request Fail!!" + err })
     }
 }

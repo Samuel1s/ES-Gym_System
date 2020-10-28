@@ -1,13 +1,13 @@
-import { Entity, OneToMany, ManyToMany, OneToOne, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, Column, JoinColumn, JoinTable } from "typeorm"
+import { Entity, ManyToMany, OneToOne, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, Column, JoinColumn, JoinTable } from "typeorm"
+import { Weight_Training } from "./Weight_Training_Classes"
 import { Medical_Exam } from "./Medical_Exam"
-import { User } from "./User"
-import { Plan } from "./Plan"
-import { Teacher } from "./Teacher"
 import { Swinning } from "./Swinning_Classes"
 import { Spinning } from "./Spinnig_Classes"
 import { Crossfit } from "./Crossfit_Classes"
-import { Weight_Training } from "./Weight_Training_Classes"
+import { Teacher } from "./Teacher"
 import { Rhythm } from "./Rhythm_Classes"
+import { User } from "./User"
+import { Plan } from "./Plan"
 
 @Entity()
 export class Registration {

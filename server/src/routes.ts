@@ -1,5 +1,5 @@
 import { createCrossfitClasses, createDoctor, createRhythmClasses, createSecretary, createSpinningClasses, createSwinningClasses, createTeacher, createWeightTrainingClasses, createPlans, createAptitudeTable } from './controller/AdminController'
-import { getUsers, getUser, createUser, updateUser, removeUser, registerUser, updateModalityTables } from './controller/SecretaryController'
+import { getUsers, getUser, createUser, updateUser, removeUser, registerUser } from './controller/SecretaryController'
 import { listUsersExams, validateUserExam } from './controller/DoctorController'
 import { createProfile, showProfile } from './controller/UserController'
 import { Router, Request, Response } from 'express'
@@ -25,7 +25,6 @@ routes.get('/admin/list_users', getUsers)
 routes.get('/admin/get_user/:id', getUser)
 //Put
 routes.put('/admin/update_user/:id', updateUser)
-routes.put('/admin/update_modality_tables', updateModalityTables)
 //Post
 routes.post('/admin/create_user', createUser)
 routes.post('/admin/register_user/:id', registerUser)

@@ -1,9 +1,9 @@
-import { Entity, CreateDateColumn, UpdateDateColumn, OneToOne, JoinColumn, Column, OneToMany, ManyToOne, ManyToMany, JoinTable } from "typeorm";
+import { Entity, CreateDateColumn, UpdateDateColumn, OneToOne, JoinColumn, Column, OneToMany, ManyToOne, ManyToMany, JoinTable } from "typeorm"
+import { Registration } from "./Registration"
+import { Medical_Exam } from "./Medical_Exam"
 import { Profile } from "./Profile"
 import { Person } from "./Person"
 import { User } from "./User"
-import { Registration } from "./Registration";
-import { Medical_Exam } from "./Medical_Exam";
 
 @Entity()
 export class Teacher extends Person {
