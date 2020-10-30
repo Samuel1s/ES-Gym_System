@@ -7,7 +7,11 @@
 ## Especificação de Requisitos do Software
 
 ### Especificação do Software
+<<<<<<< HEAD
 #### ASJ Gym
+=======
+#### PROPOSITUS
+>>>>>>> 4c36957d2e887c6e9c357806b52febeb8a34b3ee
 # 1.Introducao
 ### 1.1 Objetivos deste documento
 O documento em questão tem por finalidade apresentar um sistema para uma academia.Com o intuito de facilitar e otimizar o ecosistema da academia.
