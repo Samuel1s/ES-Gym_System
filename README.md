@@ -1,4 +1,4 @@
-# Conf Gym-React
+# Conf Gym-Vue
 
 ### Configuração back-end
 1- npm install typeorm -g 
@@ -13,18 +13,14 @@ ncu -u
 4- **Note: npm run serve --> to run server.
 
 ### Configuração do front-end
-(Usar o eslint)
-1- npm install eslint-config-airbnb eslint-plugin-import eslint-plugin-jsx-a11y eslint-plugin-react eslint-config-prettier eslint-plugin-prettier prettier eslint-import-resolver-typescript @typescript-eslint/eslint-plugin @typescript-eslint/parser -D
 
-2- dentro da pasta ../api npm install nodemon -D
+1- npm install --global @vue/cli (default instalations: Typescript, Router, Vuex)
 
-3- dentro da pasta ../api npm install @material-ui/core
+2- npm install --save axios vue-axios
 
-4- dentro da pasta ../api npm install @material-ui/icons
+3- npm install vue-material --save
 
-5- dentro da pasta ../api npm install axios
-
-**Note: npm run dev --> to run app react.
+**Note: npm run dev --> to run app vue.
 
 
 
