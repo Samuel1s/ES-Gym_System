@@ -1,6 +1,7 @@
 import { getRepository, getConnection } from "typeorm"
-import { Request, Response} from "express"
+import { request, Request, Response} from "express"
 import { Medical_Exam } from "../entity/Medical_Exam"
+import { Physical_Condition } from "../entity/ Physical_Condition"
 import { Doctor } from "../entity/Doctor"
 import { User} from "../entity/User"
 
@@ -33,6 +34,7 @@ export const listUsersExams = async (request: Request, response: Response) => {
 
 export const validateUserExam = async (request: Request, response: Response) => {
     const { id } = request.params
+    console.log(request.body)
 
     try {
         const exam = await getRepository(Medical_Exam).update(id, request.body)
@@ -61,4 +63,29 @@ export const validateUserExam = async (request: Request, response: Response) => 
     } catch(err) {
         response.status(400).json({ message: "Request Fail!!" + err })
     }
+}
+
+export const getPatient = async (request: Request, response: Response) => {
+    const { id } = request.params
+
+    try {
+        const patient = await getRepository(Medical_Exam).findOne(id, { relations: ["user"]})
+        response.status(200).json(patient)
+    } 
+    catch (err) {
+        response.status(400).json({ message: "Request Fail!!" + err })
+    }
+}
+
+export const showIMC = async (request: Request, response: Response) => {
+
+    try {
+        const imctable = await getRepository(Physical_Condition).find()
+        response.status(200).json(imctable)
+
+    }
+    catch (err) {
+        response.status(400).json({ message: "Request Fail!!" + err })
+    }
+
 }

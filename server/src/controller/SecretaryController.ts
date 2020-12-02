@@ -32,10 +32,15 @@ import { Plan } from "../entity/Plan"
   */
 
 export const createUser = async(request: Request, response: Response) => {
+    console.log(request.body)
     try {
         const newuser = await getRepository(User).save(request.body)
-        const exam = await getConnection().createQueryBuilder().insert().into(Medical_Exam).values([{"user": newuser.id}]).execute()
-        response.status(201).json(newuser)
+        console.log("Entrou AQUI!")
+        if (newuser.id != null) {
+            
+            const exam = await getConnection().createQueryBuilder().insert().into(Medical_Exam).values([{"user": newuser.id}]).execute()
+            response.status(201).json(newuser)
+        }
     } 
     catch (err) {
         response.status(400).json({ message: "Request Fail!!" + err }) 
@@ -44,7 +49,7 @@ export const createUser = async(request: Request, response: Response) => {
 
 export const getUsers = async ( request: Request, response: Response) => {
     try {
-        const users = await getRepository(User).find({ relations: ["profile_u"] })
+        const users = await getRepository(User).find({ relations: ["profile_u", "registration_u"] })
         response.status(200).json(users)
     }
     catch (err) {
@@ -140,26 +145,28 @@ export const registerUser = async (request: Request, response: Response) => {
                     modality_wt.forEach(async index => {
                         await getConnection().createQueryBuilder().update(Weight_Training).set({ number_of_enrollments: index.number_of_enrollments + 1 }).where("id = :id", { id: index.id }).execute()
                     })
-
+                    
                     const updateUserRecord = await getConnection().createQueryBuilder().update(User).set({ registration_u: enrollUser }).where("id = :id", { id: id}).execute()
-
+                    
                     if (updateUserRecord.affected == 1) {
                         await getConnection().createQueryBuilder().update(Registration).set({user_medical_exams: userExam}).where("id = :id", { id: enrollUser.id }).execute()
                         response.status(201).json(enrollUser)
-                    }
-                    else
-                        response.status(400).json({ message: "Error when updating other entities." })    
+                    } 
                 }
             }
             catch (err) {
                 response.status(400).json({ message: "Failed to enroll the user." + err })
+                console.log("Falha ao registrar o usuário.")   
             }
         } 
         else {
             response.status(400).json({ message: "The user has a medical examination pending!!" }) 
+            console.log("O usuário não possui exame médico.")   
+            
         }
     } catch (err) {
         response.status(400).json({ message: "Request Fail!!" + err })
+        console.log("Erro")
     }
 }
 
